@@ -1,0 +1,12 @@
+import { Request, Response } from "express";
+import { userDataSingUp } from "../types/authTypes";
+import * as authService from "../services/authService";
+import httpStatus from "../utils/httpStatus";
+
+
+
+export async function createUser(req: Request, res: Response) {
+    const user : userDataSingUp = req.body;
+    await authService.createUser(user);
+    res.sendStatus(httpStatus.CREATED)
+} 
