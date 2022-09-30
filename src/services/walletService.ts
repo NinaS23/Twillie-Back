@@ -30,12 +30,9 @@ function isAllInputDataEqualZero(wallet:walletDataInput){
     }
 }
 
-
 export async function getRegister(userId: number) {
  const allRegisters = await walletRepository.getRegister(userId)
  return allRegisters;
 }
 
 
-
-//get in balance 
