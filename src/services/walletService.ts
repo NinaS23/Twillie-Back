@@ -13,6 +13,7 @@ export async function createRegister(walletData: walletDataInput, userId: number
         variableEntry: walletData.variableEntry,
         fixedOutput: walletData.fixedOutput,
         variableOutput: walletData.variableOutput,
+        balance: balance
     }
     await walletRepository.registerData(walletDataInsert);
     return { balance: balance };
