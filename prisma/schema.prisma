@@ -24,6 +24,7 @@ model wallet {
   variableEntry  Int?  @default(0)
   fixedOutput    Int?  @default(0)
   variableOutput Int?  @default(0)
+  createdAt DateTime @default(now()) @db.Timestamp(6)
   users          users @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
 }

@@ -12,3 +12,4 @@ export async function isEmailExistent(email: string) {
 export async function insertUser(user: userDataSingUp) {
     await prisma.users.create({ data: user })
 }
+
