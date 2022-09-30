@@ -21,6 +21,7 @@ export async function tokenMiddleware(
     const JWT_SECRET = process.env.JWT_SECRET;
     const { userId } = jwt.verify(token, JWT_SECRET) as { userId: number };
     const user = await findUserById(userId);
+    if(!user) throw unauthorizedError("user was not found")
     res.locals.user = user;
 
     next();
