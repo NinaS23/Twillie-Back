@@ -19,11 +19,13 @@ export async function tokenMiddleware(
 
   try {
     const JWT_SECRET = process.env.JWT_SECRET;
-    const user = jwt.verify(token, JWT_SECRET)
-    res.locals.user = user
+    const { userId } = jwt.verify(token, JWT_SECRET) as { userId: number };
+    const user = await findUserById(userId);
+    res.locals.user = user;
 
     next();
-  } catch {
+  } catch (e){
+    console.log(e)
     throw unauthorizedError('Invalid token');
   }
 }

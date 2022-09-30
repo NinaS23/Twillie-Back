@@ -18,5 +18,5 @@ export async function findUserById(id: number) {
     const result = await prisma.users.findFirst({
       where: { id }
     })
-    console.log(result) ;
+  return result;
   }
