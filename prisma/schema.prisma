@@ -14,11 +14,11 @@ model users {
   password  String
   picture   String
   createdAt DateTime @default(now()) @db.Timestamp(6)
-  wallet    wallet[] 
+  wallet    wallet[]
 }
 
 model wallet {
-  id        Int      @id @default(autoincrement())
+  id             Int   @id @default(autoincrement())
   userId         Int
   fixedEntry     Int?  @default(0)
   variableEntry  Int?  @default(0)
@@ -26,7 +26,4 @@ model wallet {
   variableOutput Int?  @default(0)
   balance        Int
   users          users @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
- 
 }
-
-
