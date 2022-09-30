@@ -25,7 +25,6 @@ async function findUserByEmail(email:string, type:string) {
 
 
 export async function loginUser(email: string, password: string) {
-    console.log(email, password)
     const foundUser = await findUserByEmail(email, "login");
     await dcryptPassword(password,foundUser.password )
     const token = await createToken(foundUser.id)
@@ -42,9 +41,10 @@ async function dcryptPassword(password:string, userPassword:string) {
 }
 
 async function createToken(id:number){
-    const iduser = id;
+    const userId = id;
     const secretKey = process.env.JWT_SECRET;
     const config = { expiresIn: 60 * 60 * 6 };
-    const token = Jwt.sign({ iduser }, secretKey, config);
+    const token = Jwt.sign({ userId }, secretKey, config);
     return token;
 }
+

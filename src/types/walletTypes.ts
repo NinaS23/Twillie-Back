@@ -1,3 +1,6 @@
-import { wallet } from "@prisma/client";
+import { wallet } from "@prisma/client"
 
-export type walletDataInput = Omit<wallet, "id" >
+export type walletDataInput = Omit<wallet, "id" | "createdAt"  >
+
+
+
