@@ -1,6 +1,8 @@
 import * as errorsTypes from "../utils/errorUtils";
 import { walletDataInput } from "../types/walletTypes";
 import * as walletRepository from "../repositories/walletRepository";
+import { insertBalnce } from "../repositories/balanceRepository";
+import { InsertBalanceData } from "../types/balanceTypes";
 
 export async function createRegister(walletData: walletDataInput, userId: number) {
     isAllInputDataEqualZero(walletData);
@@ -16,6 +18,7 @@ export async function createRegister(walletData: walletDataInput, userId: number
         variableOutput: walletData.variableOutput,
      
     }
+   
     await walletRepository.registerData(walletDataInsert);
     return { balance: balance };
 }
@@ -35,5 +38,4 @@ export async function getRegister(userId: number) {
  const allRegisters = await walletRepository.getRegister(userId)
  return allRegisters;
 }
-
 
