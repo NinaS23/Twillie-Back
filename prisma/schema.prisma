@@ -28,12 +28,14 @@ model wallet {
   description    String     @default("transection")
   created_at     DateTime?   @default(now()) @db.Timestamp(6)
   users          users      @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  
+   balances  balances[]
 }
 
 model balances {
   id       Int    @id @default(autoincrement())
   userId Int  
+  walletId Int
   balance  Int?
+  wallet  wallet @relation(fields: [walletId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   users   users @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

@@ -18,8 +18,9 @@ export async function createRegister(walletData: walletDataInput, userId: number
         variableOutput: walletData.variableOutput,
      
     }
-    await insertBalance(userId,balance);
-    await walletRepository.registerData(walletDataInsert);
+  
+   const register = await walletRepository.registerData(walletDataInsert);
+    await insertBalance(userId,balance,register.id);
     return { balance: balance };
 }
 

@@ -1,10 +1,11 @@
 import { balances } from "@prisma/client";
 import * as balanceRepository from "../repositories/balanceRepository";
 
-export async function insertBalance(userId:number,balance:number) {
+export async function insertBalance(userId:number,balance:number,walletId:number) {
     const balanceData ={
         userId:userId,
-        balance:balance
+        balance:balance,
+        walletId:walletId
     }
     await balanceRepository.insertBalance(balanceData);
 }
