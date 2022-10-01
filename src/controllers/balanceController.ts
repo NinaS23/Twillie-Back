@@ -4,6 +4,8 @@ import * as balanceService from "../services/balanceService";
 
 
 export async function getBalance(req: Request, res: Response) {
-     const balance = await balanceService.getBalance();
-    res.status(httpStatus.OK).send("sou o controller do saldo");
+     const user = res.locals.user;
+     const userId = user.id;
+     const balance = await balanceService.getBalance(userId);
+    res.status(httpStatus.OK).send(balance);
 }

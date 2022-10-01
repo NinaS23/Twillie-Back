@@ -1,14 +1,14 @@
 import * as errorsTypes from "../utils/errorUtils";
 import { walletDataInput } from "../types/walletTypes";
 import * as walletRepository from "../repositories/walletRepository";
-import { insertBalnce } from "../repositories/balanceRepository";
-import { InsertBalanceData } from "../types/balanceTypes";
+import { insertBalance, getBalance } from "./balanceService";
 
 export async function createRegister(walletData: walletDataInput, userId: number) {
     isAllInputDataEqualZero(walletData);
+    const currentBalance = await getBalance(userId);
     let plusEntry = addData(walletData.fixedEntry, walletData.variableEntry);
     let plusOutput = addData(walletData.fixedOutput, walletData.variableOutput);
-    let balance = plusEntry - plusOutput;
+    let balance = (plusEntry - plusOutput) + currentBalance.lastBalance;
     const walletDataInsert = {
         userId: userId,
         description: walletData.description,
@@ -18,7 +18,7 @@ export async function createRegister(walletData: walletDataInput, userId: number
         variableOutput: walletData.variableOutput,
      
     }
-   
+    await insertBalance(userId,balance);
     await walletRepository.registerData(walletDataInsert);
     return { balance: balance };
 }
