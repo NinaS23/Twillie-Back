@@ -33,7 +33,7 @@ model wallet {
 
 model balances {
   id       Int    @id @default(autoincrement())
-  userId Int
+  userId Int  
   balance  Int?
   users   users @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
