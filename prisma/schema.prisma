@@ -18,13 +18,21 @@ model users {
 }
 
 model wallet {
-  id             Int       @id @default(autoincrement())
+  id             Int        @id @default(autoincrement())
   userId         Int
-  fixedEntry     Int?      @default(0)
-  variableEntry  Int?      @default(0)
-  fixedOutput    Int?      @default(0)
-  variableOutput Int?      @default(0)
-  description    String    @default("transection")
-  created_at     DateTime? @db.Timestamp(6)
-  users          users     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  fixedEntry     Int?       @default(0)
+  variableEntry  Int?       @default(0)
+  fixedOutput    Int?       @default(0)
+  variableOutput Int?       @default(0)
+  description    String     @default("transection")
+  created_at     DateTime?  @db.Timestamp(6)
+  users          users      @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  balances       balances[]
+}
+
+model balances {
+  id       Int    @id @default(autoincrement())
+  walletid Int
+  balance  Int?
+  wallet   wallet @relation(fields: [walletid], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
