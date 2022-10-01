@@ -28,7 +28,11 @@ export async function loginUser(email: string, password: string) {
     const foundUser = await findUserByEmail(email, "login");
     await dcryptPassword(password,foundUser.password )
     const token = await createToken(foundUser.id)
-    return token;
+    return {
+        token,
+        picture:foundUser.picture,
+        name:foundUser.name
+    };
 }
 
 
