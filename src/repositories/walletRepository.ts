@@ -1,7 +1,7 @@
 import { prisma } from "../config/database";
 import { walletDataInput } from "../types/walletTypes";
 
-export async function registerData(wallet:any) {
+export async function registerData(wallet:walletDataInput) {
     await prisma.wallet.create({data:wallet})
 }
 
