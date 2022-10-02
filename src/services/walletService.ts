@@ -39,6 +39,7 @@ function isAllInputDataEqualZero(wallet:walletDataInput){
 
 export async function getRegister(userId: number) {
  const allRegisters = await walletRepository.getRegister(userId)
+ if(allRegisters[0].userId !== userId) throw errorsTypes.unauthorizedError("not allowed to get registers")
  return allRegisters;
 }
 
