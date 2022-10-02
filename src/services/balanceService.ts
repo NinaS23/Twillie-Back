@@ -13,6 +13,7 @@ export async function insertBalance(userId:number,balance:number,walletId:number
 export async function getBalance(userId:number) {
     const balances = await balanceRepository.getBalances(userId);
     const lastBalance = returnLastBalance(balances);
+    console.log(balances)
     return {lastBalance}
 }
 

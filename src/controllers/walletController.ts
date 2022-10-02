@@ -16,3 +16,17 @@ export async function getWalletRegister(req: Request, res: Response) {
     const allRegisters = await walletService.getRegister(user.id); 
     res.status(httpStatus.OK).send(allRegisters);
 }
+
+export async function deleteWalletRegister(req: Request, res: Response) {
+    const id = req.params.id;
+    if(!id){
+        res.sendStatus(httpStatus.NO_CONTENT)
+    }
+    console.log(id)
+    const walletId: number = Number(id)
+    console.log(walletId)
+    const user = res.locals.user;
+    await walletService.deleteWalletRegister(user.id,walletId); 
+ 
+    res.sendStatus(httpStatus.OK)
+}
