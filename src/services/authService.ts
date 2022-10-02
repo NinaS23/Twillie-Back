@@ -14,12 +14,8 @@ export async function createUser(user: userDataSingUp) {
 
 async function findUserByEmail(email:string, type:string) {
     let isUserExistent = await authRepository.isEmailExistent(email);
-    if(isUserExistent && type==="register"){
-        throw errorsTypes.conflictError("email alredy registered");
-    }
-    if(!isUserExistent && type === "login"){
-        throw errorsTypes.notFoundError("email or password not found")
-    }
+    if(isUserExistent && type==="register")  throw errorsTypes.conflictError("email alredy registered");
+    if(!isUserExistent && type === "login") throw errorsTypes.notFoundError("email or password not found")
     return isUserExistent;
 }
 
