@@ -14,8 +14,11 @@ export async function createRegister(walletData: walletDataInput, userId: number
     const walletDataInsert = {
         userId: userId,
         description: walletData.description,
-        value:walletData.balancevalue,
-        type:walletData.type
+        fixedEntry: walletData.fixedEntry,
+        variableEntry: walletData.variableEntry,
+        fixedOutput: walletData.fixedOutput,
+        variableOutput: walletData.variableOutput,
+        balancevalue:balance
     }
   
    const register = await walletRepository.registerData(walletDataInsert);

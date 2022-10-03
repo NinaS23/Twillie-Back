@@ -13,7 +13,6 @@ export async function getRegister(userId:number) {
 }
 
 
-
 export async function getWalletData(id:number) {
  const result = await prisma.wallet.findFirst({ where: {  id } });
  return result;
