@@ -2,6 +2,9 @@ import joi from "joi";
 
 export const walletDataInputSchema = joi.object({
   description: joi.string().required(),
-  value: joi.number().required(),
-  type: joi.string().valid("entrada","saida").required()
+  fixedEntry: joi.number() ,  
+  variableEntry: joi.number(),
+  fixedOutput: joi.number() ,
+  variableOutput: joi.number(),
+  
 })
