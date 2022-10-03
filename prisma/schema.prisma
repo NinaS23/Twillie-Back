@@ -19,17 +19,13 @@ model users {
 }
 
 model wallet {
-  id             Int        @id @default(autoincrement())
-  userId         Int
-  fixedEntry     Int?       @default(0)
-  variableEntry  Int?       @default(0)
-  fixedOutput    Int?       @default(0)
-  variableOutput Int?       @default(0)
-  description    String     @default("transection")
-  created_at     DateTime?  @default(now()) @db.Timestamp(6)
-  balancevalue   Int        @default(0)
-  users          users      @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  balances       balances[]
+  id       Int        @id @default(autoincrement())
+  userId   Int
+  description  String
+  type     Type
+  value    Int        @default(0)
+  users    users      @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  balances balances[]
 }
 
 model balances {
@@ -39,4 +35,11 @@ model balances {
   walletId Int
   users    users  @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   wallet   wallet @relation(fields: [walletId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+enum Type {
+  entradaFixa
+  entradaVariavel
+  saidaFixa
+  saidaVariavel
 }
