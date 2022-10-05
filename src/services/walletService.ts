@@ -10,6 +10,7 @@ export async function createRegister(walletData: walletDataInput, userId: number
     const currentBalance = await balanceService.getBalance(userId);
     let plusEntry = addData(walletData.fixedEntry, walletData.variableEntry);
     let plusOutput = addData(walletData.fixedOutput, walletData.variableOutput);
+    let momentBalance = plusEntry + plusOutput;
     let balance = (plusEntry - plusOutput) + currentBalance.lastBalance;
     const walletDataInsert = {
         userId: userId,
@@ -18,7 +19,7 @@ export async function createRegister(walletData: walletDataInput, userId: number
         variableEntry: walletData.variableEntry,
         fixedOutput: walletData.fixedOutput,
         variableOutput: walletData.variableOutput,
-        balancevalue:balance
+        balancevalue:momentBalance
     }
   
    const register = await walletRepository.registerData(walletDataInsert);
