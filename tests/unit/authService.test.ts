@@ -13,25 +13,30 @@ beforeEach(() => {
 describe('Testa POST /sing-up ', () => {
     it('insert a user with the correct input data , should return 201', async () => {
         const user = authFactory.userData("correct");
-        const validEmail = await authService.findUserByEmail(user.email, "register")
         jest.spyOn(authRepository, "isEmailExistent")
             .mockResolvedValueOnce(null);
         jest.spyOn(authRepository, "insertUser")
             .mockImplementationOnce((): any => { });
         await authService.createUser(user);
+        const validEmail = await authService.findUserByEmail(user.email, "register")
         expect(authRepository.isEmailExistent).toBeTruthy()
+        expect(authRepository.isEmailExistent).toBeCalled()
+        expect(authRepository.insertUser).toBeCalled()
         expect(authRepository.insertUser).toBeTruthy()
-        expect(validEmail).toBeNull()   
+        expect(validEmail).toBeNull()
     });
 
-    it('insert a user with the incorrect input data , should return 422', async () => {
+    it('insert a user with the incorrect input data , should return 409', async () => {
         const user = authFactory.userData("incorrect");
-         await authService.findUserByEmail(user.email, "register")
+        jest.spyOn(authRepository, "isEmailExistent")
+            .mockResolvedValueOnce(null);
+        jest.spyOn(authRepository, "insertUser")
+            .mockImplementationOnce((): any => { });
+        await authService.findUserByEmail(user.email, "register")
         await authService.createUser(user);
 
+
         const wrongInput = authFactory.userData("incorrect")
-        await authService.createUser(wrongInput);
-        const validEmail = await authService.findUserByEmail(wrongInput.email, "register")
         jest
         .spyOn(authRepository, 'isEmailExistent').mockImplementationOnce( () : any =>{
             return {
@@ -43,8 +48,15 @@ describe('Testa POST /sing-up ', () => {
                 createdAt: faker.date.recent()
             }  
         })
+        const promise = authService.findUserByEmail(wrongInput.email, "register");
+        expect(promise).rejects.toEqual({
+            message: 'email alredy registered',
+            type: 'conflict'
+          });
+        expect(authRepository.insertUser).toBeCalledTimes(1)
         expect(authRepository.isEmailExistent).toBeCalled()
-        expect(validEmail).not.toBeNull()  
+        
+
     });
   });
   
