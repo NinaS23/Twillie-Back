@@ -5,6 +5,7 @@ import * as authRepository from "../repositories/authRepository";
 import bcrypt from "bcrypt";
 
 export async function createUser(user: userDataSingUp) {
+    
     const SALT = 10;
     await findUserByEmail(user.email, "register");
     const currentPassword = bcrypt.hashSync(user.password, SALT);
@@ -14,6 +15,7 @@ export async function createUser(user: userDataSingUp) {
 
 export async function findUserByEmail(email:string, type:string) {
     let isUserExistent = await authRepository.isEmailExistent(email);
+    console.log(isUserExistent)
     if(isUserExistent && type==="register")  throw errorsTypes.conflictError("email alredy registered");
     if(!isUserExistent && type === "login") throw errorsTypes.notFoundError("email or password not found")
     return isUserExistent;
@@ -21,6 +23,7 @@ export async function findUserByEmail(email:string, type:string) {
 
 
 export async function loginUser(email: string, password: string) {
+    console.log(email)
     const foundUser = await findUserByEmail(email, "login");
     await dcryptPassword(password,foundUser.password )
     const token = await createToken(foundUser.id)
@@ -40,7 +43,7 @@ async function dcryptPassword(password:string, userPassword:string) {
     
 }
 
-async function createToken(id:number){
+ async function createToken(id:number){
     const userId = id;
     const secretKey = process.env.JWT_SECRET;
     const config = { expiresIn: 60 * 60 * 6 };
