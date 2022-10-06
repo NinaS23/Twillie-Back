@@ -20,13 +20,7 @@ describe('Testa POST /sing-up ', () => {
         await authService.createUser(user);
         expect(authRepository.isEmailExistent).toBeTruthy()
         expect(authRepository.insertUser).toBeTruthy()
-        console.log(authRepository.insertUser)
-        expect(validEmail).toBeNull()
-
-        //  await findUserByEmail(user.email, "register"); mockar (ismail existent)
-        //await authRepository.insertUser(newUserData);  mockar]
-        //gerar token via factory
-
+        expect(validEmail).toBeNull()   
     });
 
     it.todo('insert a user with the incorrect input data , should return 422');
