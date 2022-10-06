@@ -46,7 +46,5 @@ describe('Testa POST /sing-up ', () => {
         expect(authRepository.isEmailExistent).toBeCalled()
         expect(validEmail).not.toBeNull()  
     });
-
-    it.todo('insert a user with nothing in input data , should return 204');
   });
   
