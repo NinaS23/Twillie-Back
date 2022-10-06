@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon src/server.ts",
     "studio": "npx prisma studio",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test:integration": "dotenv -e .env.test prisma migrate dev && NODE_OPTIONS=--experimental-vm-modules dotenv -e .env.test jest -- -i --runInBand --coverage --testPathPattern=tests/integration",
+    "test:unit": "dotenv -e .env.test prisma migrate dev && NODE_OPTIONS=--experimental-vm-modules dotenv -e .env.test jest -- -i --runInBand --coverage --testPathPattern=tests/unit"
   },
   "keywords": [],
   "author": "",
