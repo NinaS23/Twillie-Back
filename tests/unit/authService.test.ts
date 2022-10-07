@@ -12,7 +12,7 @@ beforeEach(() => {
 
 describe('Test POST /sing-up ', () => {
     it('insert a user with the correct input data , should return 201', async () => {
-        const user = authFactory.userData("correct");
+        const user = authFactory.userData("incorrect");
         jest.spyOn(authRepository, "isEmailExistent")
             .mockResolvedValueOnce(null);
         jest.spyOn(authRepository, "insertUser")
@@ -71,7 +71,7 @@ describe('Test POST /sing-in ', () => {
         await authService.findUserByEmail(user.email, "register")
         await authService.createUser(user);
 
-        const loginInput = authFactory.userData("incorrect")
+       
         jest
             .spyOn(authRepository, 'isEmailExistent').mockImplementationOnce((): any => {
                 return {
@@ -83,13 +83,14 @@ describe('Test POST /sing-in ', () => {
                     createdAt: faker.date.recent()
                 }
             })
-        const login = await authService.loginUser(loginInput.email, loginInput.password);
-        const loginEmail = await authService.findUserByEmail(loginInput.email, "login");
-    
-        expect(authRepository.isEmailExistent).toBeCalled()
-        expect(authRepository.insertUser).toBeCalled()
-        expect(login.token).not.toBeNull()
-        expect(loginEmail.password).toEqual(loginInput.password)
-        expect(loginEmail.email).toEqual(loginInput.email)
+
+            const login =  authService.loginUser(user.email, user.password);
+            expect(login).rejects.toEqual({
+                message: 'email or password was not found',
+                type: 'unauthorized'
+            });
+            expect(authRepository.insertUser).toBeCalled()
+            expect(authRepository.isEmailExistent).toBeCalled()
+        
     });
 });

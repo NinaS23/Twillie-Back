@@ -5,7 +5,6 @@ import * as authRepository from "../repositories/authRepository";
 import bcrypt from "bcrypt";
 
 export async function createUser(user: userDataSingUp) {
-    
     const SALT = 10;
     await findUserByEmail(user.email, "register");
     const currentPassword = bcrypt.hashSync(user.password, SALT);
@@ -15,7 +14,6 @@ export async function createUser(user: userDataSingUp) {
 
 export async function findUserByEmail(email:string, type:string) {
     let isUserExistent = await authRepository.isEmailExistent(email);
-    console.log(isUserExistent)
     if(isUserExistent && type==="register")  throw errorsTypes.conflictError("email alredy registered");
     if(!isUserExistent && type === "login") throw errorsTypes.notFoundError("email or password not found")
     return isUserExistent;
@@ -23,7 +21,6 @@ export async function findUserByEmail(email:string, type:string) {
 
 
 export async function loginUser(email: string, password: string) {
-    console.log(email)
     const foundUser = await findUserByEmail(email, "login");
     await dcryptPassword(password,foundUser.password )
     const token = await createToken(foundUser.id)
@@ -35,10 +32,12 @@ export async function loginUser(email: string, password: string) {
 }
 
 
-async function dcryptPassword(password:string, userPassword:string) {
+ async function dcryptPassword(password:string, userPassword:string) {
+   console.log(password,userPassword)
     const passwordVerify = bcrypt.compareSync(password, userPassword);
+    console.log(passwordVerify)
     if(!passwordVerify){
-        throw {code:"unauthorized", message:"email or password incorrect!"}
+        throw errorsTypes.unauthorizedError("email or password was not found")
     }
     
 }
