@@ -33,9 +33,7 @@ export async function loginUser(email: string, password: string) {
 
 
  async function dcryptPassword(password:string, userPassword:string) {
-   console.log(password,userPassword)
     const passwordVerify = bcrypt.compareSync(password, userPassword);
-    console.log(passwordVerify)
     if(!passwordVerify){
         throw errorsTypes.unauthorizedError("email or password was not found")
     }
