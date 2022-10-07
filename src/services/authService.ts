@@ -32,15 +32,17 @@ export async function loginUser(email: string, password: string) {
 }
 
 
-async function dcryptPassword(password:string, userPassword:string) {
+ async function dcryptPassword(password:string, userPassword:string) {
+   console.log(password,userPassword)
     const passwordVerify = bcrypt.compareSync(password, userPassword);
+    console.log(passwordVerify)
     if(!passwordVerify){
-        throw {code:"unauthorized", message:"email or password incorrect!"}
+        throw errorsTypes.unauthorizedError("email or password was not found")
     }
     
 }
 
-async function createToken(id:number){
+ async function createToken(id:number){
     const userId = id;
     const secretKey = process.env.JWT_SECRET;
     const config = { expiresIn: 60 * 60 * 6 };
