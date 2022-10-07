@@ -96,3 +96,7 @@ describe('Test GET /wallet', () => {
     })
 
 });
+
+describe('Test DELETE /wallet/:id', () => {
+    it.todo('do a login for user with the correct input data , should return 200')
+});

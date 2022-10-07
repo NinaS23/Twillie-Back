@@ -10,7 +10,7 @@ export async function createRegister(walletData: walletDataInput, userId: number
     const currentBalance = await balanceService.getBalance(userId);
     let plusEntry = addData(walletData.fixedEntry, walletData.variableEntry);
     let plusOutput = addData(walletData.fixedOutput, walletData.variableOutput);
-    let momentBalance = plusEntry + plusOutput;
+    let momentBalance = plusEntry - plusOutput;
     let balance = (plusEntry - plusOutput) + currentBalance.lastBalance;
     const walletDataInsert = {
         userId: userId,
@@ -39,7 +39,6 @@ function isAllInputDataEqualZero(wallet:walletDataInput){
 }
 
 export async function getRegister(userId: number) {
-    console.log(userId)
  const allRegisters = await walletRepository.getRegister(userId)
  if(allRegisters[0].userId !== userId) throw errorsTypes.unauthorizedError("not allowed to get registers")
  return allRegisters;
