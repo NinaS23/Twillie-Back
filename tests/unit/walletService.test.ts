@@ -46,3 +46,53 @@ describe('Test POST /wallet', () => {
     })
 
 });
+
+
+
+describe('Test GET /wallet', () => {
+    it('get all registers , should return a array', async () => {
+        const inputData = walletFactory.createRegister();
+        const userId = 1;
+        const walletId = 1
+        jest
+            .spyOn(walletRepository, 'registerData').mockImplementationOnce((): any => {
+                return {
+                    "userId": 1,
+                    "fixedEntry": 1,
+                    "variableEntry": 0,
+                    "fixedOutput": 0,
+                    "variableOutput": 0,
+                    "description": "ganhei dinheiro da vó",
+                    "balancevalue": 2
+                }
+            })
+        jest
+            .spyOn(balanceRepository, 'insertBalance').mockImplementationOnce((): any => {
+                return {
+                    "userId": 1,
+                    "balance": 2,
+                    "walletId": walletId
+                }
+            })
+            jest
+            .spyOn(walletRepository, 'getRegister').mockImplementationOnce((): any => {
+                return {
+                    "userId": 1,
+                    "fixedEntry": 1,
+                    "variableEntry": 0,
+                    "fixedOutput": 0,
+                    "variableOutput": 0,
+                    "description": "ganhei dinheiro da vó",
+                    "balancevalue": 2
+                }
+            })
+            
+        await walletService.createRegister(inputData, userId);
+        expect(walletRepository.registerData).toBeCalled()
+        expect(balanceRepository.insertBalance).toBeCalled()
+        
+    
+        
+    })
+
+});
