@@ -8,7 +8,7 @@ export async function createRegister(req: Request, res: Response) {
     const registerData : walletDataInput = req.body;
     const user = res.locals.user;
     const balance = await walletService.createRegister(registerData,user.id); 
-    res.status(httpStatus.OK).send(balance);
+    res.status(httpStatus.CREATED).send(balance);
 }
 
 export async function getWalletRegister(req: Request, res: Response) {
