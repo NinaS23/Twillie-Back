@@ -12,7 +12,7 @@ const server = supertest(app);
 
 
 describe('Test POST /sing-up ', () => {
-    it('nsert a user with the correct input data , should return 201', async () => {
+    it('insert a user with the correct input data , should return 201', async () => {
         const userInput = authFactory.dataInput();
         const isUserExistent = await authFactory.isEmailExistent(userInput.email);
         expect(isUserExistent).toBeNull();
@@ -27,7 +27,7 @@ describe('Test POST /sing-up ', () => {
 });
 
 describe('Test POST /sing-in ', () => {
-    it('nsert a user with the correct input data , should return 201', async () => {
+    it('login a user with the correct input data , should return 200', async () => {
         const userInput = authFactory.dataInput();
         const isUserExistent = await authFactory.isEmailExistent(userInput.email);
         expect(isUserExistent).toBeNull();
