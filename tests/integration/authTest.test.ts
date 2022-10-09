@@ -41,7 +41,8 @@ describe('Test POST /sing-in ', () => {
         expect(findUserByEmail).not.toBeNull();
         const loginUser = await server
             .post("/sing-in")
-            .send({email:userInput.email,password:userInput.password});
+            .send({ email: userInput.email, password: userInput.password });
+        expect(loginUser.statusCode).toBe(200);
         expect(loginUser.body.token).not.toBeNull();
 
     });
