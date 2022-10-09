@@ -41,7 +41,7 @@ describe('Test POST /wallet ', () => {
 });
 
 describe('Test GET /wallet ', () => {
-    it('insert a user with the correct input data , should return 201',async () => {
+    it('get all registers , should return 200',async () => {
         const userInput = authFactory.dataInput();
         const isUserExistent = await authFactory.isEmailExistent(userInput.email);
         expect(isUserExistent).toBeNull();
