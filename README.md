@@ -81,3 +81,42 @@ for integration tests, run the command :
 ```git
 npm run test:integration
 ```
+
+<!-- REQUESTS -->
+### &nbsp; ☰ &nbsp; Request
+
+###### Body _`/sign-up`_
+
+
+```json
+{
+  "name": "bruna",
+  "email": "ana@bruasee.com",
+  "password": "12345",
+  "picture": "https://images.app.goo.gl/U11LHYVXt1tqL6kk7"
+}
+```
+
+
+###### Body _`/sign-in`_
+
+
+```json
+{
+ "email": "ana@bruasee.com",
+  "password": "12345"
+}
+```
+
+###### Body _`/wallet`_ (autenticada)
+
+
+```json
+{
+  "fixedEntry": 1,
+  "variableEntry":56,
+  "fixedOutput": 6,
+  "variableOutput":2,
+  "description":"comprei bala da alice e ganhei 57 reais da vó"
+}
+```
