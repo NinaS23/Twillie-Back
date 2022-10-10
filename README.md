@@ -117,7 +117,7 @@ npm run test:integration
   "variableEntry":56,
   "fixedOutput": 6,
   "variableOutput":2,
-  "description":"comprei bala da alice e ganhei 57 reais da vó"
+  "description":"comprei bala da alice e ganhei 57 reais da vó e paguei os 6 reais do junin"
 }
 ```
 
