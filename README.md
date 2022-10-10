@@ -81,7 +81,3 @@ for integration tests, run the command :
 ```git
 npm run test:integration
 ```
-for both of them , run the command :
- ``` git
- npm test
- ```
