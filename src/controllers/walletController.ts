@@ -22,9 +22,7 @@ export async function deleteWalletRegister(req: Request, res: Response) {
     if(!id){
         res.sendStatus(httpStatus.NO_CONTENT)
     }
-    console.log(id)
     const walletId: number = Number(id)
-    console.log(walletId)
     const user = res.locals.user;
     await walletService.deleteWalletRegister(user.id,walletId); 
  
