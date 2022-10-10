@@ -26,7 +26,6 @@ export async function tokenMiddleware(
 
     next();
   } catch (e){
-    console.log(e)
     throw unauthorizedError('Invalid token');
   }
 }
